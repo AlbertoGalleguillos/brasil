@@ -18,4 +18,7 @@ Route::get('/', function () {
 */
 
 Route::get('/', 'PhotoController@index');
-Route::get('/{category_name}', 'PhotoController@category');
+Route::get('/category/{category_name}', 'PhotoController@category');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

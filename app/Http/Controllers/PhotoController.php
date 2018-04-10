@@ -7,17 +7,21 @@ use App\Category;
 use App\Photo;
 
 class PhotoController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
     
     public function index() {
         $categories = Category::all();
-        //dd($categories);
         return view('index', compact('categories'));
     }
 
     public function category($category_name) {
-        $category = Category::where('name', $category_name)->first();
-        $photos = Photo::where('category_id', $category->id)->get();
-        //dd($photos);
-        return view('category', compact('photos'));
+        if ($category_name) {
+            $category = Category::where('name', $category_name)->first();
+            $photos = Photo::where('category_id', $category->id)->get();
+            return view('category', compact('photos'));
+        }
     }
 }
